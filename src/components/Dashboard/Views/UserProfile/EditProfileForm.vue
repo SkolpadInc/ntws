@@ -101,31 +101,43 @@
         </div>
         <div class="clearfix"></div>
       </form>
+      <li v-for="character in characters">
+        <p>{{ character }}</p>
+      </li>
     </div>
   </div>
 </template>
 <script>
-  export default {
-    data () {
-      return {
-        user: {
-          company: 'Paper Dashboard',
-          username: 'michael23',
-          email: '',
-          lastName: 'Faker',
-          address: 'Melbourne, Australia',
-          city: 'melbourne',
-          postalCode: '',
-          aboutMe: `Oh so, your weak rhyme. You doubt I'll bother, reading into it.I'll probably won't, left to my own devicesBut that's the difference in our opinions.`
-        }
-      }
-    },
-    methods: {
-      updateProfile () {
-        alert('Your data: ' + JSON.stringify(this.user))
-      }
+import axios from 'axios'
+export default {
+  data () {
+    return {
+      user: {
+        company: 'Paper Dashboard',
+        username: 'michael23',
+        email: '',
+        lastName: 'Faker',
+        address: 'Melbourne, Australia',
+        city: 'melbourne',
+        postalCode: '',
+        aboutMe: `Oh so, your weak rhyme. You doubt I'll bother, reading into it.I'll probably won't, left to my own devicesBut that's the difference in our opinions.`
+      },
+      characters: null
+    }
+  },
+  methods: {
+    updateProfile () {
+      axios.get('http://imar.local/NTWS/public/api/accounts')
+          .then(response => {
+            this.characters = response.data
+          })
+          .catch(error => {
+            console.log(error)
+            alert(error)
+          })
     }
   }
+}
 
 </script>
 <style>
