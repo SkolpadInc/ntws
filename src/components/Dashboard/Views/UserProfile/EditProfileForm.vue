@@ -127,7 +127,7 @@ export default {
   },
   methods: {
     updateProfile () {
-      axios.get('http://imar.local/NTWS/public/api/accounts')
+      axios.get('http://ntws.jhunax.net/NTWS_Server/public/api/accounts')
           .then(response => {
             this.characters = response.data
           })
