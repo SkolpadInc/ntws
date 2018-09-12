@@ -4,7 +4,7 @@
       <h4 class="title">Edit Profile</h4>
     </div>
     <div class="content">
-      <form>
+      <form @submit.prevent="updateProfile(user)">
         <div class="row">
           <div class="col-md-5">
             <fg-input type="text"
@@ -36,14 +36,14 @@
             <fg-input type="text"
                       label="First Name"
                       placeholder="First Name"
-                      v-model="user.firstName">
+                      v-model="user.first_name">
             </fg-input>
           </div>
           <div class="col-md-6">
             <fg-input type="text"
                       label="Last Name"
                       placeholder="Last Name"
-                      v-model="user.lastName">
+                      v-model="user.last_name">
             </fg-input>
           </div>
         </div>
@@ -95,7 +95,7 @@
           </div>
         </div>
         <div class="text-center">
-          <button type="submit" class="btn btn-info btn-fill btn-wd" @click.prevent="updateProfile">
+          <button type="submit" class="btn btn-info btn-fill btn-wd">
             Update Profile
           </button>
         </div>
@@ -108,34 +108,44 @@
   </div>
 </template>
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import axios from 'axios'
 export default {
   data () {
     return {
-      user: {
-        company: 'Paper Dashboard',
-        username: 'michael23',
-        email: '',
-        lastName: 'Faker',
-        address: 'Melbourne, Australia',
-        city: 'melbourne',
-        postalCode: '',
-        aboutMe: `Oh so, your weak rhyme. You doubt I'll bother, reading into it.I'll probably won't, left to my own devicesBut that's the difference in our opinions.`
-      },
+      user: {},
+      // user: {
+      //   company: 'Paper Dashboard',
+      //   username: 'michael23',
+      //   email: '',
+      //   lastName: 'Faker',
+      //   address: 'Melbourne, Australia',
+      //   city: 'melbourne',
+      //   postalCode: '',
+      //   aboutMe: `Oh so, your weak rhyme. You doubt I'll bother, reading into it.I'll probably won't, left to my own devicesBut that's the difference in our opinions.`
+      // },
       characters: null
     }
   },
+
+  computed: {
+    ...mapGetters('auth', ['currentUser'])
+  },
+
   methods: {
-    updateProfile () {
-      axios.get('http://ntws.jhunax.net/NTWS_Server/public/api/accounts')
-          .then(response => {
-            this.characters = response.data
-          })
-          .catch(error => {
-            console.log(error)
-            alert(error)
-          })
+    ...mapActions('auth', ['updateProfile']),
+
+    /**
+     * Initialize authenticated user profile.
+     * @return {void}
+     */
+    initUserProfile () {
+      this.user = Object.assign({}, this.currentUser)
     }
+  },
+
+  mounted () {
+    this.initUserProfile()
   }
 }
 

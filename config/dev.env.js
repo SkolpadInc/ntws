@@ -3,5 +3,5 @@ var prodEnv = require('./prod.env')
 
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
-  API_URL: '"http://api.aversafe.test"'
+  API_URL: '"http://ntws.jhunax.net/NTWS_Server/public/api"'
 })

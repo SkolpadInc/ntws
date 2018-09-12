@@ -6,7 +6,7 @@
     <div class="content">
       <div class="author">
         <img class="avatar border-white" src="static/img/faces/face-2.jpg" alt="...">
-        <h4 class="title">Chet Faker
+        <h4 class="title">{{ fullName }}
           <br>
           <a href="#">
             <small>@chetfaker</small>
@@ -33,6 +33,8 @@
   </div>
 </template>
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     data () {
       return {
@@ -52,6 +54,11 @@
         ]
       }
     },
+
+    computed: {
+      ...mapGetters('auth', ['currentUser', 'fullName'])
+    },
+
     methods: {
       getClasses (index) {
         var remainder = index % 3
@@ -68,5 +75,5 @@
 
 </script>
 <style>
-  
+
 </style>
