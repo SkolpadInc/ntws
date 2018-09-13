@@ -8,10 +8,9 @@
     <div class="sidebar-wrapper" id="style-3">
       <div class="logo">
         <a href="#" class="simple-text">
-            <div class="logo-img">
-                <img src="static/img/vue-logo.png" alt="">
-            </div>
-          Paper Dashboard
+            <center>
+              <img src="static/images/ntws-logo.png" alt="NTWS Logo" width="144" height="144">
+            </center>
         </a>
       </div>
       <slot>
@@ -48,7 +47,7 @@
       },
       backgroundColor: {
         type: String,
-        default: 'black',
+        default: 'white',
         validator: (value) => {
           let acceptedValues = ['white', 'black', 'darkblue']
           return acceptedValues.indexOf(value) !== -1
