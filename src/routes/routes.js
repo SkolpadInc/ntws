@@ -1,6 +1,15 @@
+// State management
+import store from '../state/store'
+
+// Layout
 import DashboardLayout from '../components/Dashboard/Layout/DashboardLayout.vue'
+import AuthLayout from '../components/Auth/Layout/AuthLayout.vue'
+
 // GeneralViews
 import NotFound from '../components/GeneralViews/NotFoundPage.vue'
+
+// Auth
+import Login from 'src/components/Auth/Views/Login.vue'
 
 // Admin pages
 import Overview from 'src/components/Dashboard/Views/Overview.vue'
@@ -13,6 +22,32 @@ import TableList from 'src/components/Dashboard/Views/TableList.vue'
 
 const routes = [
   {
+    path: '/login',
+    redirect: '/auth/login'
+  },
+  {
+    path: '/auth',
+    component: AuthLayout,
+    redirect: '/auth/login',
+    children: [
+      {
+        path: 'login',
+        name: 'login',
+        component: Login,
+        beforeEnter (routeTo, routeFrom, next) {
+          // If the user is already logged in
+          if (store.getters['auth/loggedIn']) {
+            // Redirect to the home page instead
+            next({ name: 'overview' })
+          } else {
+            // Continue to the login page
+            next()
+          }
+        }
+      }
+    ]
+  },
+  {
     path: '/',
     component: DashboardLayout,
     redirect: '/admin/overview'
@@ -21,6 +56,16 @@ const routes = [
     path: '/admin',
     component: DashboardLayout,
     redirect: '/admin/stats',
+    beforeEnter (routeTo, routeFrom, next) {
+      // If a guest user
+      if (!store.getters['auth/loggedIn']) {
+        // Redirect to the login page instead
+        next({ name: 'login' })
+      } else {
+        // Continue to the overview pages
+        next()
+      }
+    },
     children: [
       {
         path: 'overview',

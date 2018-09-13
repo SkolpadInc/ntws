@@ -17,6 +17,10 @@ import 'bootstrap/dist/css/bootstrap.css'
 import './assets/sass/paper-dashboard.scss'
 import 'es6-promise/auto'
 
+// Custom
+import './plugins'
+import store from './state/store'
+
 // plugin setup
 Vue.use(VueRouter)
 Vue.use(GlobalComponents)
@@ -42,6 +46,7 @@ new Vue({
   el: '#app',
   render: h => h(App),
   router,
+  store,
   data: {
     Chartist: Chartist
   }
