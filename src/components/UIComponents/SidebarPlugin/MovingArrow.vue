@@ -25,7 +25,7 @@
 
 </script>
 <style lang="scss">
-  $bg-nude: #f4f3ef !default;
+  $bg-nude: #F2F3F4 !default;
   
   .moving-arrow {
     border-right: 17px solid $bg-nude;
@@ -34,7 +34,7 @@
     display: inline-block;
     position: absolute;
     left: 243px;
-    top: 95px;
+    top: 195px;
     transition: all 0.5s cubic-bezier(0.29, 1.42, 0.79, 1);
   }
 </style>
