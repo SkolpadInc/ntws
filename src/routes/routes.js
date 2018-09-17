@@ -12,7 +12,7 @@ import NotFound from '../components/GeneralViews/NotFoundPage.vue'
 import Login from 'src/components/Auth/Views/Login.vue'
 
 // Admin pages
-import Overview from 'src/components/Dashboard/Views/Overview.vue'
+import Users from 'src/components/Dashboard/Views/Users.vue'
 import UserProfile from 'src/components/Dashboard/Views/UserProfile.vue'
 import Notifications from 'src/components/Dashboard/Views/Notifications.vue'
 import Icons from 'src/components/Dashboard/Views/Icons.vue'
@@ -38,7 +38,7 @@ const routes = [
           // If the user is already logged in
           if (store.getters['auth/loggedIn']) {
             // Redirect to the home page instead
-            next({ name: 'overview' })
+            next({ name: 'users' })
           } else {
             // Continue to the login page
             next()
@@ -50,7 +50,7 @@ const routes = [
   {
     path: '/',
     component: DashboardLayout,
-    redirect: '/admin/overview'
+    redirect: '/admin/users'
   },
   {
     path: '/admin',
@@ -68,9 +68,9 @@ const routes = [
     },
     children: [
       {
-        path: 'overview',
-        name: 'overview',
-        component: Overview
+        path: 'users',
+        name: 'users',
+        component: Users
       },
       {
         path: 'stats',

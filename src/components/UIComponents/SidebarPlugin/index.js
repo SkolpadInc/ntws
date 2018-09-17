@@ -6,7 +6,7 @@ const SidebarStore = {
     {
       name: 'Users',
       icon: 'ti-panel',
-      path: '/admin/overview'
+      path: '/admin/users'
     },
     {
       name: 'Bills',
